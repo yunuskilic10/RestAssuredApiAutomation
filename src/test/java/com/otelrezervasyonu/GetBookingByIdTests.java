@@ -2,7 +2,7 @@ package com.otelrezervasyonu;
 
 import io.restassured.response.Response;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 import static io.restassured.RestAssured.given;
@@ -12,12 +12,11 @@ public class GetBookingByIdTests extends BaseTest {
     public void getBookingById(){
 
 
-   Response response = given()
+   Response response = given(specification)
            .when()
-           .get("http://restful-booker.herokuapp.com/booking/" + createBookingId());
+           .get("/booking/" + createBookingId());
 
 response.then().statusCode(200);
-response.prettyPrint();
 
 String firstName = response.jsonPath().getString("firstname");
 Assert.assertEquals("Yunus",firstName);

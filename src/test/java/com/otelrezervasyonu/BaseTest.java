@@ -1,12 +1,36 @@
 package com.otelrezervasyonu;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
+
+
+import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 
 public class BaseTest {
+
+
+      RequestSpecification specification;
+
+
+
+    @BeforeEach
+    public void setup() {
+
+        specification = new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com")
+                .addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())
+                ).build();
+    }
+
+
+
     protected String bookingObject(String firstName, String lastName, int  totalprice) {
         JSONObject requestBody = new JSONObject();
         requestBody.put("firstname", firstName);
@@ -22,14 +46,14 @@ public class BaseTest {
     }
 
     protected Response createBooking() {
-        Response response = given()
+        Response response = given(specification)
 
                 .when()
                 .contentType(ContentType.JSON)
                 .body(bookingObject("Yunus", "Emre", 100))
-                .post("https://restful-booker.herokuapp.com/booking");
+                .post("/booking");
         response.then().statusCode(200);
-        response.prettyPrint();
+
         return response;
     }
      protected int createBookingId() {
@@ -41,12 +65,12 @@ public class BaseTest {
         JSONObject newToken = new JSONObject();
         newToken.put("username", "admin");
         newToken.put("password", "password123");
-        Response response = given().contentType(ContentType.JSON).when().
+        Response response = given(specification).contentType(ContentType.JSON).when().
                 body(newToken.toString()).
-                post("https://restful-booker.herokuapp.com/auth");
+                post("/auth");
         response.then().statusCode(200);
-        response.prettyPrint();
-         String token = response.jsonPath().getString("token");
+
+        String token = response.jsonPath().getString("token");
          return token;
 
     }

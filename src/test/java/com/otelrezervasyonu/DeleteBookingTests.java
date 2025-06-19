@@ -2,7 +2,8 @@ package com.otelrezervasyonu;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import static io.restassured.RestAssured.given;
 
@@ -11,11 +12,11 @@ public class DeleteBookingTests extends BaseTest {
     public void deleteBookingTest(){
 
 
-        Response response=given().contentType(ContentType.JSON).header("Cookie","token="+createToken())
+        Response response=given(specification).contentType(ContentType.JSON).header("Cookie","token="+createToken())
                 .when()
-                .delete("https://restful-booker.herokuapp.com/booking/"+createBookingId());
+                .delete("/booking/"+createBookingId());
         response.then().statusCode(201);
-        response.prettyPrint();
+
 
     }
 }
