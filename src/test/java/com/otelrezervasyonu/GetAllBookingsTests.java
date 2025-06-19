@@ -1,3 +1,5 @@
+package com.otelrezervasyonu;
+
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
