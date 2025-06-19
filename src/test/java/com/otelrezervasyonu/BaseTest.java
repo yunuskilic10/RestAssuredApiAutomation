@@ -32,7 +32,11 @@ public class BaseTest {
         response.prettyPrint();
         return response;
     }
-
+     protected int createBookingId() {
+        Response response = createBooking();
+        int bookingId = response.jsonPath().getInt("bookingid");
+        return bookingId;
+    }
     protected String createToken() {
         JSONObject newToken = new JSONObject();
         newToken.put("username", "admin");

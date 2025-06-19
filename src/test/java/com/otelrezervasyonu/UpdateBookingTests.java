@@ -11,13 +11,12 @@ import static io.restassured.RestAssured.given;
 public class UpdateBookingTests extends BaseTest {
     @Test
     public void updateBookingTest(){
-        String token=createToken();
-        Response createBooking=createBooking();
-      int bookingId=  createBooking.jsonPath().getInt("bookingid");
-      Response response=given().contentType(ContentType.JSON).header("Cookie","token="+token)
+
+
+      Response response=given().contentType(ContentType.JSON).header("Cookie","token="+createToken())
               .when()
               .body(bookingObject("John", "Doe", 100))
-              .put("https://restful-booker.herokuapp.com/booking/"+bookingId);
+              .put("https://restful-booker.herokuapp.com/booking/"+createBookingId());
         response.then().statusCode(200);
         response.prettyPrint();
         Assert.assertEquals("John", response.jsonPath().getString("firstname"));
