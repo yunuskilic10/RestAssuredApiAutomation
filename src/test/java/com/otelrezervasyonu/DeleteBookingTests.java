@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteBokingTests extends BaseTest {
+public class DeleteBookingTests extends BaseTest {
     @Test
     public void deleteBookingTest(){
 
