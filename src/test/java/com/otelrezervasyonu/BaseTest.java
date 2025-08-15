@@ -32,7 +32,7 @@ public class BaseTest {
 
     protected String bookingObject(String firstName, String lastName, int  totalprice) {
         JSONObject requestBody = new JSONObject();
-        requestBody.put("firstnamess", firstName);
+        requestBody.put("firstname", firstName);
         requestBody.put("lastname", lastName);
         requestBody.put("totalprice", totalprice);
         requestBody.put("depositpaid", true);
