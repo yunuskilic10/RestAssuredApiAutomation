@@ -1,18 +1,17 @@
 package com.otelrezervasyonu;
 
+import java.util.Arrays;
+
+import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
+
+import static io.restassured.RestAssured.given;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
-
-
-import java.util.Arrays;
-
-import static io.restassured.RestAssured.given;
 
 public class BaseTest {
 
@@ -33,7 +32,7 @@ public class BaseTest {
 
     protected String bookingObject(String firstName, String lastName, int  totalprice) {
         JSONObject requestBody = new JSONObject();
-        requestBody.put("firstname", firstName);
+        requestBody.put("firstnamess", firstName);
         requestBody.put("lastname", lastName);
         requestBody.put("totalprice", totalprice);
         requestBody.put("depositpaid", true);
